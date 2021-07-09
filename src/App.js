@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {CardList} from './components/card/CardList'
 import './App.css';
+import { Searchbox } from './components/Searchbox';
 
 class App extends Component {
 
@@ -9,7 +10,8 @@ class App extends Component {
 
     this.state = {
       monsters: [
-      ]
+      ],
+      searchParam: ''
     }
 
   }
@@ -20,10 +22,19 @@ class App extends Component {
     .then(users => this.setState({monsters: users}))
   }
 
+  search = (e) => {
+    this.setState({searchParam: e.target.value})
+  }
+
   render() {
+    let {monsters, searchParam} = this.state;
+    let filterMonsters = monsters.filter(monster => monster.name.toLocaleLowerCase().includes(searchParam.toLocaleLowerCase()));
+    
     return (
       <div className="App">
-        <CardList monsters={this.state.monsters}/>
+        <h1>Monster Rolodex</h1>
+        <Searchbox filter={this.search} placeholder="Search monster..." />
+        <CardList monsters={filterMonsters}/>
       </div>
     )
   }

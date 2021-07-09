@@ -1,4 +1,3 @@
-import './card-list.css'
 export const Card =  ({monster}) => {
     return (
         <div className='card-container'>
